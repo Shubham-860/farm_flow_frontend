@@ -19,7 +19,7 @@ import {useAuth} from "@/components/Hooks/useAuth.js";
 import {ModeToggle} from "@/components/ui/mode-toggle.jsx";
 import Logout from "@/components/common/Logout.jsx";
 
-const Navbar1 = (
+const Navbar = (
     {
         logo = {
             url: "/",
@@ -57,7 +57,7 @@ const Navbar1 = (
 
 
     return (
-        <section className={cn("py-4 mx-5", className)}>
+        <section className={cn("py-4 px-5", className)}>
             <div className="container">
 
 
@@ -220,4 +220,4 @@ const SubMenuLink = ({
     );
 };
 
-export {Navbar1};
+export {Navbar};

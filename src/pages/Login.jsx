@@ -6,12 +6,13 @@ import {Button} from "@/components/ui/button.jsx";
 import {Input} from "@/components/ui/input.jsx";
 import axiosConfig from "@/api/axiosConfig.js";
 import {useAuth} from "@/components/Hooks/useAuth.js";
-import {useNavigate} from "react-router";
+import {Link, useNavigate} from "react-router";
 import {useEffect} from "react";
+import {toast} from "sonner"
 
 const formSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(3),
+    email: z.email(),
+    password: z.string().min(3, "Password must be at least 3 characters long."),
 });
 
 const Login = () => {
@@ -32,63 +33,96 @@ const Login = () => {
     const onSubmit = async (data) => {
 
         axiosConfig.post("/auth/login", data).then(res => {
-            console.log("data:", res.data);
-            setUser({name: res.data.name, email: res.data.email, id: res.data.id});
+            console.log("login data:", res.data);
+            setUser({name: res.data.user.name, email: res.data.user.email, id: res.data.user.id});
             localStorage.setItem("token", res.data.token);
+            toast.success("Logged in successfully!");
             navigate("/");
         }).catch(e => {
             const message = e.response?.data?.message || "Something went wrong";
             form.setError("root", {message});
+            toast.error("Invalid credentials. Please try again.");
             console.log(message);
         })
 
     }
 
     return (
-        <div className={"container mx-auto pt-28"}>
-            <h1 className={"text-center my-3 mb-5 text-3xl"}>Login</h1>
-            <Form {...form} >
-                <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto space-y-6 max-w-sm ">
+        <div className="flex items-center justify-center w-full min-h-full px-4 ">
+            <div className="w-full max-w-sm bg-muted rounded-2xl shadow-md border border-border p-8 space-y-6">
 
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({field}) => (
-                            <FormItem className={"flex flex-col gap-1 items-center"}>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="email@example.com" {...field} />
-                                </FormControl>
-                                <FormMessage/>
-                            </FormItem>
+                {/* Header */}
+                <div className="space-y-1 text-center">
+                    <h1 className="text-2xl font-semibold tracking-tight">Welcome back</h1>
+                    <p className="text-sm text-muted-foreground">Enter your credentials to continue</p>
+                </div>
+
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="email@example.com" {...field}
+                                               className={"dark:bg-neutral-900 dark:text-white"}/>
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({field}) => (
+                                <FormItem>
+                                    <div className="flex items-center justify-between">
+                                        <FormLabel>Password</FormLabel>
+                                        {/*<a href="#" className="text-xs text-muted-foreground hover:text-foreground transition-colors">*/}
+                                        {/*    Forgot password?*/}
+                                        {/*</a>*/}
+                                    </div>
+                                    <FormControl>
+                                        <Input type="password" placeholder="••••••••" {...field}
+                                               className={"dark:bg-neutral-900 dark:text-white"}/>
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
+
+                        {form.formState.errors.root && (
+                            <p className="text-sm font-medium text-destructive text-center">
+                                {form.formState.errors.root.message}
+                            </p>
                         )}
-                    />
 
-                    <FormField
-                        control={form.control}
-                        name="password"
-                        render={({field}) => (
-                            <FormItem className={"flex flex-col gap-1 items-center"}>
-                                <FormLabel>Password</FormLabel>
-                                <FormControl>
-                                    <Input type="password" placeholder="Password" {...field} />
-                                </FormControl>
-                                <FormMessage/>
-                            </FormItem>
-                        )}
-                    />
-                    {form.formState.errors.root && (
-                        <p className="text-sm font-medium text-destructive text-center">
-                            {form.formState.errors.root.message}
-                        </p>
-                    )}
-                    <span className="flex justify-center">
-                    <Button type="submit" disabled={form.formState.isSubmitting} size={"lg"} >Login</Button>
-                    </span>
+                        <Button
+                            type="submit"
+                            disabled={form.formState.isSubmitting}
+                            className="w-full mt-2"
+                            size="lg"
+                        >
+                            {form.formState.isSubmitting ? "Signing in…" : "Sign in"}
+                        </Button>
 
-                </form>
-            </Form>
+                    </form>
+                </Form>
+
+                <p className="text-center text-sm text-muted-foreground">
+                    Don't have an account?{" "}
+                    <Link to="/register" className="text-foreground font-medium hover:underline underline-offset-4">
+                        Sign up
+                    </Link>
+                </p>
+
+            </div>
         </div>
+
     );
 };
 

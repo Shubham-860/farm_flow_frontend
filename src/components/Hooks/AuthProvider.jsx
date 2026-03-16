@@ -13,7 +13,10 @@ export const AuthProvider = ({children}) => {
             axiosConfig.get("/user/me")
                 .then(res => setUser(res.data))
                 // .catch(() => setUser({abc:2}))
-                .catch(() => setUser(null))
+                .catch(() => {
+                    setUser(null);
+                    localStorage.removeItem("token");
+                })
                 .finally(() => setLoading(false));
         }
     }, [location.pathname, setUser]);
