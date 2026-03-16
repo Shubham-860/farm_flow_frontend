@@ -1,19 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import axiosConfig from "@/api/axiosConfig.js";
+import React from 'react';
 import {Navigate} from "react-router";
+import {useAuth} from "@/components/Hooks/useAuth.js";
 
 const ProtectedRoutes = ({children}) => {
-    const [auth, setAuth] = useState(null)
-    useEffect(() => {
-        axiosConfig.get("/user/me")
-            .then(res => {
-                setAuth(!!res.data)
-            })
-            .catch(() => setAuth(false))
-    }, []);
-
-    if (auth === null) return <div>Checking authentication...</div>
-    return auth ? children : <Navigate to={"/login"}/>;
+    const {user, loading} = useAuth();
+    if (loading) return <div>Checking authentication...</div>
+    return user ? children : <Navigate to={"/login"}/>;
 };
 
 export default ProtectedRoutes;
