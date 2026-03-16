@@ -17,6 +17,7 @@ import {cn} from "@/lib/utils";
 import {Link} from "react-router";
 import {useAuth} from "@/components/Hooks/useAuth.js";
 import {ModeToggle} from "@/components/ui/mode-toggle.jsx";
+import Logout from "@/components/common/Logout.jsx";
 
 const Navbar1 = (
     {
@@ -81,6 +82,9 @@ const Navbar1 = (
                             <ModeToggle/>
                         </div>
                     </div>
+                    {user?.id &&
+                        <Logout/>
+                    }
                     {!user &&
                         <div className="flex gap-2">
                             <Button asChild variant="outline" size="sm">
@@ -90,6 +94,7 @@ const Navbar1 = (
                                 <Link to={auth.signup.url}>{auth.signup.title}</Link>
                             </Button>
                         </div>}
+
 
                 </nav>
 
@@ -133,6 +138,9 @@ const Navbar1 = (
                                                 <Link to={auth.signup.url}>{auth.signup.title}</Link>
                                             </Button>
                                         </div>}
+                                    {user?.id &&
+                                        <Logout/>
+                                    }
 
 
                                 </div>
