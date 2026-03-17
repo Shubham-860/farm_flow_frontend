@@ -38,8 +38,16 @@ const Navbar = (
                 url: "/farms"
             },
             {
+                title: "Season Transaction",
+                url: "/SeasonTransaction"
+            },
+            {
                 title: "Reports",
                 url: "/reports"
+            },
+            {
+                title: "About",
+                url: "/about"
             }
         ],
 
@@ -57,8 +65,8 @@ const Navbar = (
 
 
     return (
-        <section className={cn("py-4 px-5", className)}>
-            <div className="container">
+        <section className={cn("py-4 ps-5", className)}>
+            <div className="max-w-7xl mx-auto pe-6">
 
 
                 {/* Desktop Menu */}
@@ -82,9 +90,6 @@ const Navbar = (
                             <ModeToggle/>
                         </div>
                     </div>
-                    {user?.id &&
-                        <Logout/>
-                    }
                     {!user &&
                         <div className="flex gap-2">
                             <Button asChild variant="outline" size="sm">
@@ -95,6 +100,9 @@ const Navbar = (
                             </Button>
                         </div>}
 
+                    {user?.id &&
+                        <Logout/>
+                    }
 
                 </nav>
 

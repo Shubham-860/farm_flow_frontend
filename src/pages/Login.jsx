@@ -23,6 +23,8 @@ const Login = () => {
     useEffect(() => {
         if (localStorage.getItem("token")) navigate("/");
     }, [navigate]);
+
+
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -30,6 +32,8 @@ const Login = () => {
             password: ""
         }
     })
+
+
     const onSubmit = async (data) => {
 
         axiosConfig.post("/auth/login", data).then(res => {
@@ -63,6 +67,7 @@ const Login = () => {
                         <FormField
                             control={form.control}
                             name="email"
+                            rules={{required: "Email is required"}}
                             render={({field}) => (
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
