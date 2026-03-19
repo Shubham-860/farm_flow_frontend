@@ -20,7 +20,7 @@ const FarmModal = ({open, onOpenChange, farm, onSuccess}) => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            areaAcre: 0,
+            areaAcre: null,
         }
     })
 

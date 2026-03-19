@@ -37,10 +37,10 @@ const Navbar = (
                 title: "Farms",
                 url: "/farms"
             },
-            {
-                title: "Season Transaction",
-                url: "/SeasonTransaction"
-            },
+            // {
+            //     title: "Season Transaction",
+            //     url: "/SeasonTransaction"
+            // },
             {
                 title: "Reports",
                 url: "/reports"
