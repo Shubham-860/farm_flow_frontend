@@ -74,7 +74,7 @@ const CropSeason = ({season,fetchFarms,handleEditCropSeason}) => {
                         </Badge>
                     }
                     {season.active &&
-                        <Badge variant="outline" className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs border-green-600 bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300">
+                        <Badge variant="outline" className="flex items-center justify-center gap-1.5 px-3 py-1 rounded-full text-xs border-green-600 bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300">
                             <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
                             Active
                         </Badge>
