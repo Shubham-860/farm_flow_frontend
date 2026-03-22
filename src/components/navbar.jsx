@@ -23,7 +23,8 @@ const Navbar = (
     {
         logo = {
             url: "/",
-            src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
+            logoW:"/logo%20W.PNG",
+            logoB:"/logo%20B.PNG",
             alt: "logo",
             title: "Farm Flow",
         },
@@ -74,7 +75,8 @@ const Navbar = (
                     <div className="flex items-center gap-6">
                         {/* Logo */}
                         <Link to={logo.url} className="flex items-center gap-2">
-                            <img src={logo.src} className="max-h-8 dark:invert" alt={logo.alt}/>
+                            <img src={logo.logoW} className="max-h-8 hidden dark:block" alt={logo.alt}/>
+                            <img src={logo.logoB} className="max-h-8  dark:hidden" alt={logo.alt}/>
                             <span className="text-lg font-semibold tracking-tighter">
                                 {logo.title}
                             </span>

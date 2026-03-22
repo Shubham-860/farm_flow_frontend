@@ -12,6 +12,7 @@ import Footer from "@/components/common/Footer.jsx";
 import {Toaster} from "sonner";
 import {useTheme} from "next-themes";
 import About from "@/pages/About.jsx";
+import Reports from "@/pages/Reports.jsx";
 
 function App() {
     const {theme = "system"} = useTheme()
@@ -26,6 +27,7 @@ function App() {
                         <Routes>
                             <Route path="/" element={<ProtectedRoutes><Dashboard/></ProtectedRoutes>}/>
                             <Route path="/farms" element={<ProtectedRoutes><Farms/></ProtectedRoutes>}/>
+                            <Route path="/reports" element={<ProtectedRoutes><Reports/></ProtectedRoutes>}/>
                             <Route path="/SeasonTransaction/:id" element={<ProtectedRoutes><SeasonTransaction/></ProtectedRoutes>}/>
                             <Route path="/about" element={<About/>}/>
                             <Route path="/login" element={<Login/>}/>
