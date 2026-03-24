@@ -33,9 +33,9 @@ const Register = () => {
     })
     const onSubmit = async (data) => {
 
-        axiosConfig.post("/auth/register", data).then(res => {
+        axiosConfig.post("/auth/registerUser", data).then(res => {
             console.log("data:", res.data.status);
-            const message = res?.response?.data?.message
+            const message = res?.data?.message
             if (res.data.status) {
                 toast.success("Registered successfully!");
                 navigate("/login");

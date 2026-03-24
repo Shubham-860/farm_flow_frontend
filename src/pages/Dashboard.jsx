@@ -5,6 +5,8 @@ import CropSeasonsModal from "@/components/FormModal/CropSeasonsModal.jsx";
 import {Separator} from "@/components/ui/separator.jsx";
 import SeasonTransactionPage from "@/components/SeasonTransactionTable/SeasonTransactionPage.jsx";
 import {Card, CardContent, CardHeader, CardTitle,} from "@/components/ui/card"
+import {useNavigate} from "react-router";
+import {useAuth} from "@/components/Hooks/useAuth.js";
 
 const Dashboard = () => {
     const [farms, setFarms] = useState([]);
@@ -12,6 +14,8 @@ const Dashboard = () => {
     const [selectedCropSeason, setSelectedCropSeason] = useState(null)
     const [farmId, setFarmId] = useState(null)
     const [data, setData] = useState(null);
+    const navigate = useNavigate();
+    const {user} = useAuth();
 
     const fetchFarms = () => {
         axiosConfig.get("/farm/allinfo")
@@ -32,6 +36,7 @@ const Dashboard = () => {
     }
 
     useEffect(() => {
+        if (user.role === "ADMIN") navigate("/dashboard")
         // eslint-disable-next-line react-hooks/set-state-in-effect
         fetchFarms()
     }, []);
@@ -48,12 +53,6 @@ const Dashboard = () => {
             <h1 className="text-3xl font-semibold mb-5">Dashboard</h1>
 
             <section className={"grid grid-cols-4 gap-4"}>
-
-                {/*pending*/}
-                {/*profit*/}
-                {/*totalExpense*/}
-                {/*totalIncome*/}
-
 
                 <Card size="sm" className="mx-auto w-full max-w-xs border border-green-500 text-center">
                     <CardHeader>

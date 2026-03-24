@@ -21,49 +21,61 @@ import Logout from "@/components/common/Logout.jsx";
 
 const Navbar = (
     {
-        logo = {
-            url: "/",
-            logoW:"/logo%20W.PNG",
-            logoB:"/logo%20B.PNG",
-            alt: "logo",
-            title: "Farm Flow",
-        },
-
-        menu = [
-            {
-                title: "Dashboard",
-                url: "/"
-            },
-            {
-                title: "Farms",
-                url: "/farms"
-            },
-            // {
-            //     title: "Season Transaction",
-            //     url: "/SeasonTransaction"
-            // },
-            {
-                title: "Reports",
-                url: "/reports"
-            },
-            {
-                title: "About",
-                url: "/about"
-            }
-        ],
-
-        auth = {
-            login: {title: "Login", url: "/login"},
-            signup: {title: "Sign up", url: "/register"},
-        },
 
         className
     }
 ) => {
 
-
     const {user} = useAuth();
 
+    const logo = {
+        url: "/",
+        logoW: "/logo%20W.PNG",
+        logoB: "/logo%20B.PNG",
+        alt: "logo",
+        title: "Farm Flow",
+    }
+
+    let menu
+    user?.role === "ADMIN" ?
+        menu = [
+            {
+                title: "Dashboard",
+                url: "/dashboard"
+            },
+            {
+                title: "Users",
+                url: "/users"
+            },
+            {
+                title: "Reports",
+            }
+        ]
+        :
+        menu = [
+        {
+            title: "Dashboard",
+            url: "/"
+        },
+        {
+            title: "Farms",
+            url: "/farms"
+        },
+        {
+            title: "Reports",
+            url: "/reports"
+        },
+        {
+            title: "About",
+            url: "/about"
+        }
+    ];
+
+
+    const auth = {
+        login: {title: "Login", url: "/login"},
+        signup: {title: "Sign up", url: "/register"},
+    }
 
     return (
         <section className={cn("py-4 ps-5", className)}>

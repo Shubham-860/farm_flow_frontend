@@ -20,7 +20,7 @@ const DeleteConfirm = ({onDelete, title = "not provided"}) => {
             <AlertDialogTrigger asChild>
                 {title === "not provided" ?
                     <Button variant="outline"
-                            className="text-red-900 border-red-900 hover:border-red-600" size="sm">
+                            className="text-red-900 border-red-900 hover:border-red-600 bg-transparent" size="sm">
 
                         <Trash2 className="w-4 h-4"/>
                     </Button>

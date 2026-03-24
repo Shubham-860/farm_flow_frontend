@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useForm} from "react-hook-form";
 import axiosConfig from "@/api/axiosConfig.js";
 import {toast} from "sonner";
@@ -11,8 +11,50 @@ import {Textarea} from "@/components/ui/textarea.jsx";
 import {Button} from "@/components/ui/button.jsx";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover.jsx";
 import {Calendar} from "@/components/ui/calendar.jsx";
+import {Command, CommandEmpty, CommandInput, CommandItem, CommandList} from "@/components/ui/command.jsx";
+import {Check, ChevronsUpDown} from "lucide-react";
+import {cn} from "@/lib/utils.js";
+import {crops} from "@/constants/constants.js";
 
 
+// --- Crop Combobox ---
+const CropCombobox = ({value, onChange}) => {
+    const [comboOpen, setComboOpen] = useState(false);
+
+    return (
+        <Popover open={comboOpen} onOpenChange={setComboOpen}>
+            <PopoverTrigger asChild>
+                <Button variant="outline" className="w-full justify-between">
+                    {value || "Select crop..."}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50"/>
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-full p-0">
+                <Command>
+                    <CommandInput placeholder="Search crop..."/>
+                    <CommandList>
+                        <CommandEmpty>No crop found.</CommandEmpty>
+                        {crops.map(crop => (
+                            <CommandItem
+                                key={crop}
+                                value={crop}
+                                onSelect={(val) => {
+                                    onChange(val);
+                                    setComboOpen(false);
+                                }}
+                            >
+                                <Check className={cn("mr-2 h-4 w-4", value === crop ? "opacity-100" : "opacity-0")}/>
+                                {crop}
+                            </CommandItem>
+                        ))}
+                    </CommandList>
+                </Command>
+            </PopoverContent>
+        </Popover>
+    );
+};
+
+// --- Main Modal ---
 const CropSeasonsModal = ({open, onOpenChange, cropSeason, onSuccess, farmId}) => {
     const isEdit = !!cropSeason;
 
@@ -24,7 +66,8 @@ const CropSeasonsModal = ({open, onOpenChange, cropSeason, onSuccess, farmId}) =
             endDate: "",
             notes: "",
         }
-    })
+    });
+
     useEffect(() => {
         if (cropSeason) {
             form.reset({
@@ -32,107 +75,97 @@ const CropSeasonsModal = ({open, onOpenChange, cropSeason, onSuccess, farmId}) =
                 unit: cropSeason.unit,
                 startDate: cropSeason.startDate,
                 endDate: cropSeason.endDate,
-                notes: cropSeason.notes
-            })
+                notes: cropSeason.notes,
+            });
         } else {
             form.reset({
-                cropName: "", unit: "", startDate: "", endDate: "", notes: "",
-            })
+                cropName: "",
+                unit: "",
+                startDate: "",
+                endDate: "",
+                notes: "",
+            });
         }
     }, [cropSeason]);
 
     const onSubmit = async (data) => {
-        data.farm = {id: farmId}
-        data.active = true;
-        console.log("data:", data);
+        data.farm = {id: farmId};
         if (isEdit) {
-            await axiosConfig.put(`/cropseason/${cropSeason.id}`, data).then(res => {
-                console.log("edit cropSeason res:", res.data);
-                toast.success("CropSeason updated successfully!");
-            }).catch(e => {
-                console.log("edit cropSeason error:", e.response?.data || e.message);
-                toast.error("Failed to update cropSeason. Please try again.");
-            })
+            data.active = false;
+            await axiosConfig.put(`/cropseason/${cropSeason.id}`, data)
+                .then(() => toast.success("CropSeason updated successfully!"))
+                .catch(e => {
+                    console.log(e.response?.data || e.message);
+                    toast.error("Failed to update cropSeason. Please try again.");
+                });
         } else {
-            await axiosConfig.post("/cropseason/add", data).then(res => {
-                console.log("add cropSeason res:", res.data);
-                toast.success("CropSeason added successfully!");
-            }).catch(e => {
-                console.log("add cropSeason error:", e.response?.data || e.message);
-                toast.error("Failed to add cropSeason. Please try again.");
-            })
+            await axiosConfig.post("/cropseason/add", data)
+                .then(() => toast.success("CropSeason added successfully!"))
+                .catch(e => {
+                    console.log(e.response?.data || e.message);
+                    toast.error("Failed to add cropSeason. Please try again.");
+                });
         }
         onOpenChange(false);
         onSuccess();
-    }
+    };
 
     return (
-        <Dialog open={open} onOpenChange={onOpenChange} >
+        <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent>
-
-                {/*head*/}
 
                 <DialogHeader>
                     <DialogTitle>
-                        {isEdit ? "Edit cropSeason" : "Add new cropSeason"}
+                        {isEdit ? "Edit Crop Season" : "Add New Crop Season"}
                     </DialogTitle>
                 </DialogHeader>
-
-                {/*{form}*/}
 
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-3">
 
-
+                        {/* Crop Name */}
                         <FormField
                             control={form.control}
-                            name={"cropName"}
+                            name="cropName"
                             rules={{required: "Crop name is required"}}
                             render={({field}) => (
                                 <FormItem>
-                                    <FieldLabel>Crop name</FieldLabel>
-                                    <FormControl>
-                                        <Input
-                                            placeholder="eg. Corn"
-                                            {...field}
-                                        />
-                                    </FormControl>
+                                    <FieldLabel>Crop Name</FieldLabel>
+                                    <CropCombobox value={field.value} onChange={field.onChange}/>
                                     <FormMessage/>
                                 </FormItem>
-                            )}/>
+                            )}
+                        />
 
+                        {/* Unit */}
                         <FormField
                             control={form.control}
-                            name={"unit"}
+                            name="unit"
                             rules={{required: "Crop unit is required"}}
                             render={({field}) => (
                                 <FormItem>
                                     <FieldLabel>Unit</FieldLabel>
                                     <FormControl>
-                                        <Input
-                                            placeholder="how to measure them eg. Kg, crate, boxes"
-                                            {...field}
-                                        />
+                                        <Input placeholder="how to measure them eg. Kg, crate, boxes" {...field} />
                                     </FormControl>
                                     <FormMessage/>
                                 </FormItem>
-                            )}/>
+                            )}
+                        />
 
-
+                        {/* Start Date */}
                         <FormField
                             control={form.control}
                             name="startDate"
                             render={({field}) => (
                                 <FormItem>
                                     <FieldLabel>Start Date</FieldLabel>
-
                                     <Popover>
                                         <PopoverTrigger asChild>
                                             <Button variant="outline" className="w-full justify-start">
                                                 {field.value ? format(field.value, "PPP") : "Pick a date"}
                                             </Button>
                                         </PopoverTrigger>
-
                                         <PopoverContent className="w-auto p-0">
                                             <Calendar
                                                 mode="single"
@@ -141,26 +174,24 @@ const CropSeasonsModal = ({open, onOpenChange, cropSeason, onSuccess, farmId}) =
                                             />
                                         </PopoverContent>
                                     </Popover>
-
                                     <FormMessage/>
                                 </FormItem>
                             )}
                         />
 
+                        {/* End Date */}
                         <FormField
                             control={form.control}
                             name="endDate"
                             render={({field}) => (
                                 <FormItem>
                                     <FieldLabel>End Date</FieldLabel>
-
                                     <Popover>
                                         <PopoverTrigger asChild>
                                             <Button variant="outline" className="w-full justify-start">
                                                 {field.value ? format(field.value, "PPP") : "Pick a date"}
                                             </Button>
                                         </PopoverTrigger>
-
                                         <PopoverContent className="w-auto p-0">
                                             <Calendar
                                                 mode="single"
@@ -169,19 +200,18 @@ const CropSeasonsModal = ({open, onOpenChange, cropSeason, onSuccess, farmId}) =
                                             />
                                         </PopoverContent>
                                     </Popover>
-
                                     <FormMessage/>
                                 </FormItem>
                             )}
                         />
 
-
+                        {/* Notes */}
                         <FormField
                             control={form.control}
-                            name={"notes"}
+                            name="notes"
                             render={({field}) => (
                                 <FormItem>
-                                    <FieldLabel>Unit</FieldLabel>
+                                    <FieldLabel>Notes</FieldLabel>
                                     <FormControl>
                                         <Textarea
                                             placeholder="Enter notes..."
@@ -191,7 +221,8 @@ const CropSeasonsModal = ({open, onOpenChange, cropSeason, onSuccess, farmId}) =
                                     </FormControl>
                                     <FormMessage/>
                                 </FormItem>
-                            )}/>
+                            )}
+                        />
 
                         {form.formState.errors.root && (
                             <p className="text-sm font-medium text-destructive text-center">
@@ -199,21 +230,26 @@ const CropSeasonsModal = ({open, onOpenChange, cropSeason, onSuccess, farmId}) =
                             </p>
                         )}
 
-                        <div className={"flex justify-end gap-2 pt-2"}>
-                            <Button type={"button"} variant={"outline"}
-                                    onClick={() => onOpenChange(false)}
-                                    disabled={form.formState.isSubmitting}>
+                        <div className="flex justify-end gap-2 pt-2">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                onClick={() => onOpenChange(false)}
+                                disabled={form.formState.isSubmitting}
+                            >
                                 Cancel
                             </Button>
-                            <Button type={"submit"} variant={"outline"}
-                                    disabled={form.formState.isSubmitting}>
+                            <Button
+                                type="submit"
+                                variant="outline"
+                                disabled={form.formState.isSubmitting}
+                            >
                                 {isEdit ? "Update" : "Add"}
                             </Button>
                         </div>
 
                     </form>
                 </Form>
-
 
             </DialogContent>
         </Dialog>
