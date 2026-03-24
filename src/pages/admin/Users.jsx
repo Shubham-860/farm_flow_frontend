@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axiosConfig from "@/api/axiosConfig.js";
-import { toast } from "sonner";
+import {toast} from "sonner";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card.jsx";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table.jsx";
-import { Skeleton } from "@/components/ui/skeleton.jsx";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card.jsx";
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table.jsx";
+import {Skeleton} from "@/components/ui/skeleton.jsx";
 import DeleteConfirm from "@/components/common/DeleteConfirm.jsx";
-import { Button } from "@/components/ui/button.jsx";
-import { Link } from "react-router";
+import {Button} from "@/components/ui/button.jsx";
+import {Link} from "react-router";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -59,13 +52,13 @@ const Users = () => {
             {loading && (
                 <div className="space-y-4">
                     <div className="flex flex-wrap gap-4">
-                        {Array.from({ length: 3 }).map((_, i) => (
-                            <Skeleton key={i} className="h-28 flex-1 min-w-44 rounded-xl" />
+                        {Array.from({length: 3}).map((_, i) => (
+                            <Skeleton key={i} className="h-28 flex-1 min-w-44 rounded-xl"/>
                         ))}
                     </div>
                     <div className="flex flex-wrap gap-4">
-                        <Skeleton className="h-48 flex-1 min-w-64 rounded-xl" />
-                        <Skeleton className="h-48 flex-1 min-w-64 rounded-xl" />
+                        <Skeleton className="h-48 flex-1 min-w-64 rounded-xl"/>
+                        <Skeleton className="h-48 flex-1 min-w-64 rounded-xl"/>
                     </div>
                 </div>
             )}
