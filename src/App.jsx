@@ -16,6 +16,7 @@ import AdminRoutes from "@/components/common/AdminRoutes.jsx";
 import AdminDashboard from "@/pages/admin/AdminDashboard.jsx";
 import AddAdmin from "@/pages/admin/AddAdmin.jsx";
 import Users from "@/pages/admin/Users.jsx";
+import AdminCrops from "@/pages/admin/AdminCrops.jsx";
 
 function App() {
     const {theme = "system"} = useTheme()
@@ -38,6 +39,7 @@ function App() {
                             <Route path="/dashboard" element={<AdminRoutes><AdminDashboard/></AdminRoutes>}/>
                             <Route path="/addadmin" element={<AdminRoutes><AddAdmin/></AdminRoutes>}/>
                             <Route path="/users" element={<AdminRoutes><Users/></AdminRoutes>}/>
+                            <Route path="/crops" element={<AdminRoutes><AdminCrops/></AdminRoutes>}/>
 
 
                             <Route path="/about" element={<About/>}/>

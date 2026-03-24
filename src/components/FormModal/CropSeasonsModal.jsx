@@ -36,15 +36,15 @@ const CropCombobox = ({value, onChange}) => {
                         <CommandEmpty>No crop found.</CommandEmpty>
                         {crops.map(crop => (
                             <CommandItem
-                                key={crop}
-                                value={crop}
+                                key={crop.name}
+                                value={crop.name}
                                 onSelect={(val) => {
                                     onChange(val);
                                     setComboOpen(false);
                                 }}
                             >
-                                <Check className={cn("mr-2 h-4 w-4", value === crop ? "opacity-100" : "opacity-0")}/>
-                                {crop}
+                                <Check className={cn("mr-2 h-4 w-4", value === crop.name ? "opacity-100" : "opacity-0")}/>
+                                {crop.name}
                             </CommandItem>
                         ))}
                     </CommandList>
@@ -61,7 +61,6 @@ const CropSeasonsModal = ({open, onOpenChange, cropSeason, onSuccess, farmId}) =
     const form = useForm({
         defaultValues: {
             cropName: "",
-            unit: "",
             startDate: "",
             endDate: "",
             notes: "",
@@ -71,25 +70,17 @@ const CropSeasonsModal = ({open, onOpenChange, cropSeason, onSuccess, farmId}) =
     useEffect(() => {
         if (cropSeason) {
             form.reset({
-                cropName: cropSeason.cropName,
-                unit: cropSeason.unit,
-                startDate: cropSeason.startDate,
-                endDate: cropSeason.endDate,
-                notes: cropSeason.notes,
-            });
-        } else {
-            form.reset({
-                cropName: "",
-                unit: "",
-                startDate: "",
-                endDate: "",
-                notes: "",
+                cropName: cropSeason.cropName || "",
+                startDate: cropSeason.startDate ? new Date(cropSeason.startDate) : "",
+                endDate: cropSeason.endDate ? new Date(cropSeason.endDate) : "",
+                notes: cropSeason.notes || "",
             });
         }
     }, [cropSeason]);
 
     const onSubmit = async (data) => {
         data.farm = {id: farmId};
+        data.unit = crops.find(crop => crop.name === data.cropName).unit;
         if (isEdit) {
             data.active = false;
             await axiosConfig.put(`/cropseason/${cropSeason.id}`, data)
@@ -137,21 +128,6 @@ const CropSeasonsModal = ({open, onOpenChange, cropSeason, onSuccess, farmId}) =
                             )}
                         />
 
-                        {/* Unit */}
-                        <FormField
-                            control={form.control}
-                            name="unit"
-                            rules={{required: "Crop unit is required"}}
-                            render={({field}) => (
-                                <FormItem>
-                                    <FieldLabel>Unit</FieldLabel>
-                                    <FormControl>
-                                        <Input placeholder="how to measure them eg. Kg, crate, boxes" {...field} />
-                                    </FormControl>
-                                    <FormMessage/>
-                                </FormItem>
-                            )}
-                        />
 
                         {/* Start Date */}
                         <FormField

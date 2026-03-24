@@ -35,7 +35,6 @@ const AdminDashboard = () => {
         <section className="py-6 space-y-6">
             <h1 className="text-3xl font-semibold">Admin Dashboard</h1>
 
-            {/* Skeletons */}
             {loading && (
                 <div className="space-y-4">
                     <div className="flex flex-wrap gap-4">
@@ -55,7 +54,7 @@ const AdminDashboard = () => {
 
                     {/* Summary Cards */}
                     <div className="flex flex-wrap gap-4">
-                        <Card className="border-blue-500 text-center flex-1 min-w-44">
+                        <Card className="border border-blue-500 text-center flex-1 min-w-44 bg-muted">
                             <CardHeader>
                                 <CardTitle className="text-blue-500 text-xl">Total Users</CardTitle>
                             </CardHeader>
@@ -66,7 +65,7 @@ const AdminDashboard = () => {
                             </CardContent>
                         </Card>
 
-                        <Card className="border-green-500 text-center flex-1 min-w-44">
+                        <Card className="border border-green-500 text-center flex-1 min-w-44 bg-muted">
                             <CardHeader>
                                 <CardTitle className="text-green-500 text-xl">Total Farms</CardTitle>
                             </CardHeader>
@@ -77,7 +76,7 @@ const AdminDashboard = () => {
                             </CardContent>
                         </Card>
 
-                        <Card className="border-purple-500 text-center flex-1 min-w-44">
+                        <Card className="border border-purple-500 text-center flex-1 min-w-44 bg-muted">
                             <CardHeader>
                                 <CardTitle className="text-purple-500 text-xl">Total Transactions</CardTitle>
                             </CardHeader>

@@ -48,7 +48,8 @@ const Navbar = (
                 url: "/users"
             },
             {
-                title: "Reports",
+                title: "Crops",
+                url: "/crops"
             }
         ]
         :
