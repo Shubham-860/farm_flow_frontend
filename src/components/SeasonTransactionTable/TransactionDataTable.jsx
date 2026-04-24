@@ -134,8 +134,8 @@ const TransactionDataTable = ({data = [], modifiable = false, onEdit, onDelete, 
 
             <h2 className="text-2xl">{title ?? "Transactions table"}</h2>
 
-            <div className="flex items-center justify-end w-full my-6">
-                <div className="flex items-center gap-2 me-6">
+            <div className="flex flex-wrap items-center justify-end w-full my-6">
+                <div className="flex flex-wrap items-center gap-2 me-6">
                     <span>Filter by:</span>
                     <Button variant="outline" onClick={() => setTypeFilter("ALL")}>All</Button>
                     <Button variant="outline" onClick={() => setTypeFilter("INCOME")}>Income</Button>

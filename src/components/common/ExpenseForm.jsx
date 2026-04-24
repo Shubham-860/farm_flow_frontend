@@ -24,6 +24,7 @@ const expenseSchema = z.object({
     pricePerUnit: z.coerce.number().min(0, "Price per unit must be a positive number"),
     amount: z.coerce.number().min(0, "Amount must be a positive number"),
     description: z.string().optional(),
+    transactionDate: z.coerce.date(),
 });
 
 const ExpenseForm = ({cropSeason: cs, refresh, transection, onOpenChange}) => {
@@ -229,7 +230,9 @@ const ExpenseForm = ({cropSeason: cs, refresh, transection, onOpenChange}) => {
                                 >
                                     <CalendarDays className="mr-2 w-4 h-4"/>
                                     {field.value ? field.value.toLocaleDateString("en-GB", {
-                                        day: "2-digit", month: "short", year: "numeric"
+                                        day: "2-digit",
+                                        month: "short",
+                                        year: "numeric"
                                     }) : "Pick a date"}
                                 </Button>
                             </PopoverTrigger>
