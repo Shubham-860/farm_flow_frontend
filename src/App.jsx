@@ -17,9 +17,17 @@ import AdminDashboard from "@/pages/admin/AdminDashboard.jsx";
 import AddAdmin from "@/pages/admin/AddAdmin.jsx";
 import Users from "@/pages/admin/Users.jsx";
 import AdminCrops from "@/pages/admin/AdminCrops.jsx";
+import ReactGA from "react-ga4";
+import {useEffect} from "react";
 
 function App() {
     const {theme = "system"} = useTheme()
+
+    useEffect(() => {
+        ReactGA.initialize("G-YBT8YHHPRZ");
+        ReactGA.send({hitType: "pageview", page: window.location.pathname, title: "App.jsx"});
+
+    })
     return (
         <AuthProvider>
             <div className={"w-full flex flex-col justify-between min-h-screen bg-background"}>
