@@ -127,7 +127,8 @@ const Navbar = (
                     <div className="flex items-center justify-between">
                         {/* Logo */}
                         <Link to={logo.url} className="flex items-center gap-2">
-                            <img src={logo.src} className="max-h-8 dark:invert" alt={logo.alt}/>
+                            <img src={logo.logoW} className="max-h-8 hidden dark:block" alt={logo.alt}/>
+                            <img src={logo.logoB} className="max-h-8  dark:hidden" alt={logo.alt}/>
                         </Link>
                         <Sheet>
                             <SheetTrigger asChild>
