@@ -1,16 +1,75 @@
-# React + Vite
+# FarmFlow — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React frontend for **FarmFlow**, a farm management app for tracking crop seasons, farm details, and income/expense transactions.
 
-Currently, two official plugins are available:
+**Live app:** https://farmflow-shubham.vercel.app
+**Backend repo:** [FarmFlow_Backend](https://github.com/Shubham-860/FarmFlow_Backend)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> The backend runs on Render's free tier — the first request after inactivity may take up to a minute while the server wakes up. Please be patient on first load!
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- User authentication (register/login) with JWT
+- Dashboard to manage multiple farms
+- Crop season tracking with start/end dates and status
+- Log income and expense transactions by category
+- Clean, responsive UI
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | React (Vite) |
+| Styling | Tailwind CSS |
+| HTTP Client | Axios |
+| Routing | React Router|
+| Hosting | Vercel |
+
+## Running Locally
+
+### Prerequisites
+- Node.js (v25+)
+- The [backend](https://github.com/Shubham-860/FarmFlow_Backend) running locally or accessible remotely
+
+### Setup
+
+```bash
+git clone https://github.com/Shubham-860/farm_flow_frontend.git
+cd farm_flow_frontend
+npm install
+```
+
+Create a `.env` file in the project root:
+
+```
+VITE_API_URL=http://localhost:8080
+```
+
+Run the dev server:
+
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`.
+
+## Environment Variables
+
+| Variable | Description |
+|---|---|
+| `VITE_API_URL` | Base URL of the backend API |
+
+
+## Build for Production
+
+```bash
+npm run build
+```
+
+Outputs a production-ready build to the `dist/` folder.
+
+## Deployment
+
+This frontend is deployed on **Vercel**, connecting to the FarmFlow backend hosted on Render. CORS is configured on the backend to allow requests from this deployed domain and `localhost` during development.
