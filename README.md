@@ -5,7 +5,7 @@ React frontend for **FarmFlow**, a farm management app for tracking crop seasons
 **Live app:** https://farmflow-shubham.vercel.app
 **Backend repo:** [FarmFlow_Backend](https://github.com/Shubham-860/FarmFlow_Backend)
 
-> The backend runs on Render's free tier - the first request after inactivity may take up to a minute while the server wakes up. Please be patient on first load!
+> The backend runs on Render's free tier, so the first request after inactivity may be delayed while the service wakes up.
 
 ---
 
@@ -15,6 +15,8 @@ React frontend for **FarmFlow**, a farm management app for tracking crop seasons
 - Dashboard to manage multiple farms
 - Crop season tracking with start/end dates and status
 - Log income and expense transactions by category
+- Reports and farm analytics
+- Role-based admin tools for user management, crop analytics, and admin creation
 - Clean, responsive UI
 
 ## Tech Stack
@@ -24,13 +26,13 @@ React frontend for **FarmFlow**, a farm management app for tracking crop seasons
 | Framework | React (Vite) |
 | Styling | Tailwind CSS |
 | HTTP Client | Axios |
-| Routing | React Router|
+| Routing | React Router |
 | Hosting | Vercel |
 
 ## Running Locally
 
 ### Prerequisites
-- Node.js (v25+)
+- Node.js `20.19+` or `22.12+`
 - The [backend](https://github.com/Shubham-860/FarmFlow_Backend) running locally or accessible remotely
 
 ### Setup
@@ -72,4 +74,4 @@ Outputs a production-ready build to the `dist/` folder.
 
 ## Deployment
 
-This frontend is deployed on **Vercel**, connecting to the FarmFlow backend hosted on Render. CORS is configured on the backend to allow requests from this deployed domain and `localhost` during development.
+This frontend is deployed on **Vercel**, connecting to the FarmFlow backend hosted on Render. Configure `VITE_API_URL` in the Vercel project's environment variables with the deployed backend URL. CORS is configured on the backend to allow requests from this deployed domain and `localhost` during development.
