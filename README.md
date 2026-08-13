@@ -1,11 +1,11 @@
-# FarmFlow — Frontend
+# FarmFlow - Frontend
 
 React frontend for **FarmFlow**, a farm management app for tracking crop seasons, farm details, and income/expense transactions.
 
 **Live app:** https://farmflow-shubham.vercel.app
 **Backend repo:** [FarmFlow_Backend](https://github.com/Shubham-860/FarmFlow_Backend)
 
-> The backend runs on Render's free tier — the first request after inactivity may take up to a minute while the server wakes up. Please be patient on first load!
+> The backend runs on Render's free tier - the first request after inactivity may take up to a minute while the server wakes up. Please be patient on first load!
 
 ---
 
