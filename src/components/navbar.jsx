@@ -54,23 +54,23 @@ const Navbar = (
         ]
         :
         menu = [
-        {
-            title: "Dashboard",
-            url: "/"
-        },
-        {
-            title: "Farms",
-            url: "/farms"
-        },
-        {
-            title: "Reports",
-            url: "/reports"
-        },
-        {
-            title: "About",
-            url: "/about"
-        }
-    ];
+            {
+                title: "Dashboard",
+                url: "/"
+            },
+            {
+                title: "Farms",
+                url: "/farms"
+            },
+            {
+                title: "Reports",
+                url: "/reports"
+            },
+            {
+                title: "About",
+                url: "/about"
+            }
+        ];
 
 
     const auth = {
@@ -101,7 +101,7 @@ const Navbar = (
                                 </NavigationMenuList>
                             </NavigationMenu>
                         </div>
-                        <div>
+                        <div className="cursor-pointer">
                             <ModeToggle/>
                         </div>
                     </div>
@@ -150,7 +150,7 @@ const Navbar = (
                                         {menu.map((item) => renderMobileMenuItem(item))}
                                     </Accordion>
 
-                                    <div>
+                                    <div className="cursor-pointer">
                                         <ModeToggle/>
                                     </div>
                                     {!user &&

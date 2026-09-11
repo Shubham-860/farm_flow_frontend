@@ -115,7 +115,7 @@ const Login = () => {
                         <Button
                             type="submit"
                             disabled={form.formState.isSubmitting}
-                            className="w-full mt-2"
+                            className="w-full mt-2 cursor-pointer"
                             size="lg"
                         >
                             {form.formState.isSubmitting ? "Signing in…" : "Sign in"}
@@ -132,13 +132,13 @@ const Login = () => {
                 </p>
 
                 <div
-                    className="flex gap-3 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-muted-foreground">
+                    className="flex items-center gap-3 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-muted-foreground">
                     <Clock3 className="mt-0.5 size-4 shrink-0 text-amber-600 dark:text-amber-400" aria-hidden="true"/>
                     <p>
-                        This website is hosted on Render's free service. If it is not responding, please wait 30–60
-                        seconds for it to start, then try again. Thank you!
+                        This website is hosted on Render's free service. If it is not responding, please wait 1-5
+                        minutes for it to start, then try again. Thank you!
                         <p className={"mt-2 "}>
-                            <button><Link className={"underline me-1"} target={"_blank"}
+                            <button><Link className={"underline me-1 text-blue-400"} target={"_blank"}
                                 to={"https://farmflow-backend-ir2w.onrender.com/actuator/health"}> click  </Link>
                             </button>
                              to check status

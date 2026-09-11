@@ -124,7 +124,7 @@ const Register = () => {
                         <Button
                             type="submit"
                             disabled={form.formState.isSubmitting}
-                            className="w-full mt-2"
+                            className="w-full mt-2 cursor-pointer"
                             size="lg"
                         >
                             {form.formState.isSubmitting ? "Signing in…" : "Sign in"}

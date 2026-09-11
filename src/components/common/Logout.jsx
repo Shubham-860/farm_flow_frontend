@@ -14,7 +14,7 @@ const Logout = () => {
     };
 
     return (
-        <Button variant="outline" onClick={handleLogout}>
+        <Button variant="outline" className="cursor-pointer" onClick={handleLogout}>
             Logout
         </Button>
     );
